@@ -18,7 +18,6 @@ after((done) => {
 const sample_idea_id = 'tttttttttttt'
 const sample_idea_id2 = 'aaaaaaaaaaaa'
 
-
     describe('Idea sample', () => {
         beforeEach((done) => {
             const sampleIdea = new Idea({
