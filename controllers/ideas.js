@@ -1,51 +1,47 @@
 const Idea = require("../models/ideas");
 
 const express = require('express');
-const router = express.Router();
+module.exports = function (app) {
 
-router.get('/', (req, res) => {
-    Idea.find().then((ideas) => {
-        return res.json({ideas})
+
+
+app.post('/ideas/new', (req, res) => {
+    let ideas = new Idea(req.body);
+
+    ideas.save((err, post) => {
+        return res.redirect('/');
     })
-    .catch((err) => {
-        throw err.message
-    });
-})
+    
+});
 
-router.get('/', (req, res) => {
-    Idea.findById(req.params.ideaId).then((idea) => {
-        return res.json({idea})
+app.get('/', (req, res) => {
+    Idea.find({}).lean().then(ideas => {
+        res.send({ ideas });
     })
-    .catch((err) => {
-        throw err.message
-    });
-})
-
-router.post('/', (req, res) => {
-    let idea = new Idea(req.body)
-    idea.save().then(ideaResult => {
-        return res.json({idea: ideaResult})
-    }).catch((err) => {
-        throw err.message
+    .catch(err => {
+        console.log(err.message);
     })
 })
 
-router.put('/:ideaId', (req, res) => {
-    Idea.findByIdAndUpdate(req.params.ideaId, req.body).then((idea) => {
-        return res.json({idea})
-    }).catch((err) => {
-        throw err.message
-    })
-})
 
-router.delete('/:ideaId', (req, res) => {
-    Idea.findByIdAndDelete(req.params.ideaId).then(() => {
-        return res.json({
+// app.put('/:ideaId', (req, res) => {
+//     Idea.findByIdAndUpdate(req.params.ideasId, req.body).then((ideas) => {
+//         return res.json({ideas})
+//     }).catch((err) => {
+//         throw err.message
+//     })
+// })
+
+app.delete('/:ideaId', (req, res) => {
+    Idea.findByIdAndDelete(req.params.ideasId).then(() => {
+        return res.send({
             'message': 'Successfully deleted.',
-            '_id': req.params.ideaId
+            '_id': req.params.ideasId
         })
     })
     .catch((err) => {
         throw err.message
     })
+
 })
+}

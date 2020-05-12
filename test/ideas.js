@@ -23,7 +23,6 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
             const sampleIdea = new Idea({
                 idea_by: "Noel",
                 idea: "Play cards",
-                activity_type: "Games",
                 _id: sample_idea_id
             })
             sampleIdea.save()
@@ -56,11 +55,10 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
         const newIdea2 = {
             idea_by: "Alicia",
             idea: "Jump rope in a room",
-            activity_type: "sport",
             id: sample_idea_id2
         }
         chai.request(app)
-        .post('/ideas')
+        .post('/ideas/new')
         .send(newIdea2)
         .then((res) => {
             res.status.should.be.equal(200);
@@ -74,38 +72,39 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
 
     // it('Should update an idea', (done) => {
     //     chai.request(app)
-    //     let idea = new Idea(sampleIdea);
-    //     let updatedidea = {idea_by: "Alicia", idea: "Jump rope in a room", activity_type: "Sport" }
+    //     let idea = new Idea(newIdea2);
+    //     let updatedidea = {idea_by: "Alicia", idea: "Jump rope in a room"}
     //     .put(`/ideas/${sample_idea_id}`)
-    //     .send({updatedIdea})
-    //     .end((err, res) => {
+    //     .send({updatedidea})
+    //     .then((err, res) => {
     //         if (err) { done(err) }
     //         expect(res.body.idea).to.be.an('object')
     //         console.log(res.body)
     //         res.status.should.be.equal(200);
     //         return done();
     //         })
-    //         .cath((err) => {
-    //             return done(err)
-    //         });
-    //     });
-    //     it('should delete an idea', (done) => {
-    //         chai.request(app)
-    //         .delete(`/idea/${sample_idea_id}`)
-    //         .end((err, res) => {
-    //             if (err) { done(err) }
-    //             expect(res.body.message).to.equal('Successfully deleted.')
-    //             expect(res.body._id).to.equal(sample_idea_id)
-    //             res.status.should.be.equal(200);
-    //             return done()
-    //         })
     //         .catch((err) => {
     //             return done(err)
     //         });
+    //     });
+
+    it('should delete an idea', (done) => {
+        chai.request(app)
+        .delete(`/idea/${sample_idea_id}`)
+        .send((err, res) => {
+            if (err) { done(err) }
+            expect(res.body.message).to.equal('Successfully deleted.')
+            expect(res.body._id).to.equal(sample_idea_id)
+            res.status.should.be.equal(200);
+            return done()
+        })
+        .catch((err) => {
+            return done(err)
+        });
 
          
-    //         });
-    //     })
-
-
+        });
     })
+
+
+    

@@ -1,10 +1,9 @@
 // Require Libraries
 const bodyParser = require('body-parser');
 const express = require('express');
-const ideas = require('./controllers/ideas')
-const Idea = require('./models/ideas')
+require('./models/ideas.js')
 require('./db/idea-db')
-const router = express.Router();
+
 
 
 
@@ -12,7 +11,7 @@ const router = express.Router();
 
 // App Setup
 const app = express();
-app.use(router);
+
 
 // Middleware
 const exphbs  = require('express-handlebars');
@@ -28,5 +27,12 @@ app.set('view engine', 'handlebars');
 // Start Server
 // ideas/random 
 // ideas/games
+
+
+require('./controllers/ideas.js')(app)
+app.listen(3000, () => {
+    console.log('listening')
+})
+
 
 module.exports = app;
