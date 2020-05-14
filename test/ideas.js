@@ -70,23 +70,23 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
         });
     });
 
-    // it('Should update an idea', (done) => {
-    //     chai.request(app)
-    //     let idea = new Idea(newIdea2);
-    //     let updatedidea = {idea_by: "Alicia", idea: "Jump rope in a room"}
-    //     .put(`/ideas/${sample_idea_id}`)
-    //     .send({updatedidea})
-    //     .then((err, res) => {
-    //         if (err) { done(err) }
-    //         expect(res.body.idea).to.be.an('object')
-    //         console.log(res.body)
-    //         res.status.should.be.equal(200);
-    //         return done();
-    //         })
-    //         .catch((err) => {
-    //             return done(err)
-    //         });
-    //     });
+    it('Should update an idea', (done) => {
+        chai.request(app)
+        let idea = new Idea(newIdea2);
+        let updatedidea = {idea_by: "Alicia", idea: "Jump rope in a room"}
+        .put(`/${sample_idea_id}`)
+        .send({updatedidea})
+        .then((err, res) => {
+            if (err) { done(err) }
+            expect(res.body.idea).to.be.an('object')
+            console.log(res.body)
+            res.status.should.be.equal(200);
+            return done();
+            })
+            .catch((err) => {
+                return done(err)
+            });
+        });
 
     it('should delete an idea', (done) => {
         chai.request(app)

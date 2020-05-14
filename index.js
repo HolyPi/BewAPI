@@ -1,4 +1,5 @@
 // Require Libraries
+require('dotenv').config()
 const bodyParser = require('body-parser');
 const express = require('express');
 require('./models/ideas.js')
@@ -30,6 +31,7 @@ app.set('view engine', 'handlebars');
 
 
 require('./controllers/ideas.js')(app)
+require('./controllers/auth.js')(app)
 app.listen(3000, () => {
     console.log('listening')
 })
