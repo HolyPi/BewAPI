@@ -6,13 +6,16 @@ module.exports = function (app) {
 
 
 app.post('/ideas/new', (req, res) => {
-    let ideas = new Idea(req.body);
 
+    let ideas = new Idea(req.body);
+    if (req.user) {
     ideas.save((err, post) => {
         console.log(post)
         return res.redirect('/');
     })
-    
+} else {
+    res.status(401).send({message: 'Unauthorized'})
+}
 });
 
 app.get('/', (req, res) => {

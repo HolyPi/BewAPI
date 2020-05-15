@@ -17,6 +17,7 @@ after((done) => {
 
 const sample_idea_id = 'tttttttttttt'
 const sample_idea_id2 = 'aaaaaaaaaaaa'
+const sample_idea_id3 = 'oooooooooooo'
 
     describe('Idea sample', () => {
         beforeEach((done) => {
@@ -33,7 +34,7 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
 
       
     afterEach((done) => {
-        Idea.deleteMany({ idea_by: ['Noel', 'Alicia'] })
+        Idea.deleteMany({ idea_by: ['Noel', 'Alicia', 'Tori'] })
         .then(() => {
             done()
         })
@@ -71,10 +72,15 @@ const sample_idea_id2 = 'aaaaaaaaaaaa'
     });
 
     it('Should update an idea', (done) => {
+        const newIdea3 = {
+            idea_by: "Tori",
+            idea: "Bake a cake",
+            id: sample_idea_id3,
+        }
         chai.request(app)
-        let idea = new Idea(newIdea2);
-        let updatedidea = {idea_by: "Alicia", idea: "Jump rope in a room"}
-        .put(`/${sample_idea_id}`)
+        let idea = new Idea(newIdea3);
+        let updatedidea = {idea_by: "Tori", idea: "Make Ice Cream"}
+        .put(`/${sample_idea_id3}`)
         .send({updatedidea})
         .then((err, res) => {
             if (err) { done(err) }
