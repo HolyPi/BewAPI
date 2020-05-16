@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 app.put('/:id', (req, res) => {
     Idea.findOneAndUpdate({_id: req.params.id}, {idea: req.body.idea}).then(ideas => {
-        return res.redirect('/')
+        return res.redirect(`ideas/${req.params.id}`)
     }).catch((err) => {
         throw err.message
     })

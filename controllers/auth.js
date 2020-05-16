@@ -20,33 +20,33 @@ module.exports = (app) => {
         }).catch(err => {
             console.log(err)
         })
-})
+  })
 
 
-app.post('/login', (req, res) => {
-  const username = req.body.username
-  const password = req.body.password
+  app.post('/login', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
 
-  User.findOne({name}).then(user => {
-          bcrypt.compare(password, user.password).then(match => {
-            if (match) {
-              status = 200;
-              const payload = { user: user.name };
-              const options = { expiresIn: '2d', issuer: 'IdeaIn' };
-              const secret = process.env.JWT_SECRET;
-              const token = jwt.sign(payload, secret, options);
-              res.cookie('api_token', token, {maxAge: 1000000, httpOnly: true })
-              res.redirect('/')
-          } else {
-            res.status(401).send({message: "Authenticated"})
-       
-          }
+    User.findOne({username}).then(user => {
+            bcrypt.compare(password, user.password).then(match => {
+              if (match) {
+                status = 200;
+                const payload = { user: user.username };
+                const options = { expiresIn: '2d', issuer: 'IdeaIn' };
+                const secret = process.env.JWT_SECRET;
+                const token = jwt.sign(payload, secret, options);
+                res.cookie('api_token', token, {maxAge: 1000000, httpOnly: true })
+                res.redirect('/')
+            } else {
+              res.status(401).send({message: "Authenticated"})
+        
+            }
+          })
         })
       })
-    })
 
-  app.get('/logout'), (req, res) => {
-      res.clearCookie('nToken');
-      res.redirect('/')
-    }
-  }
+  app.get('/logout', (req, res) => {
+    res.clearCookie('api_token');
+    res.redirect('/')
+  })
+}
