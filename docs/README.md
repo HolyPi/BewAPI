@@ -17,30 +17,30 @@ npm start
 
 ## Get All Ideas
 
-To get your random generated indoor idea, simply send a GET request on http://localhost:3000/ideas
+To get your random generated indoor idea, simply send a GET request on http://localhost:3000/
 
-## Get A Specific Number of Ideas
 
-Do you want maybe 10 indoor ideas at once? Simply make a GET request on http://localhost:3000/ideas/10 and you should get the number of ideas you specified.
-
-## Get a certain Activity type
-
-Want to do something specific, like maybe ideas for indoor games? Make a GET request on http://localhost:3000/ideas/games and you should get a certain number of ideas! If you want to use this plus the previous segment of getting a specific number of ideas, then make sure to do: http://localhost:3000/ideas/10/games
 
 ## Submit an Idea
 
 Do you want to submit your own idea to make other's days a little bit better? Simply follow the following structure:
 
 ```
-idea: String
 idea_by: String
-activity_type: String
+idea: String
+
 ```
+
+and make a post request to http://localhost:3000/ideas/new
 
 ## Delete an Idea
 
-Oh no, did you maybe make a typo? Didn't like the idea after all? You can send a DELETE request to http://localhost:300/ideas?_method=DELETE
+Oh no, did you maybe make a typo? Didn't like the idea after all? You can send a DELETE request to http://localhost:3000/ideas/:id
 
 ```
 id: String
 ```
+
+## Update an Idea
+
+You can also update an idea by putting a put request to http://localhost:3000/:id'
